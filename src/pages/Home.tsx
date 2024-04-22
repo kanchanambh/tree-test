@@ -147,9 +147,22 @@ const services = [
   },
 ];
 
-const Home = () => {
+interface Paragraph {
+  type: string;
+  text: string;
+}
+
+interface Content {
+  id: number;
+  author: string;
+  title: string;
+  content: Paragraph[];
+  date: string;
+}
+
+const Home: React.FC = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [recentBlogs, setRecentBlogs] = useState([]);
+  const [recentBlogs, setRecentBlogs] = useState<Content[]>([]);
 
   const handlePrevClick = () => {
     if (slideIndex === 0) {
@@ -167,6 +180,7 @@ const Home = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getFirstTwoSentences = (contentArray: any[]) => {
     const firstParagraphText =
       contentArray.find((item: { type: string }) => item.type === "paragraph")
